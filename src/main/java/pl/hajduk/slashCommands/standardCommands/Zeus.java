@@ -1,8 +1,9 @@
-package pl.hajduk.slashCommands.embedded;
+package pl.hajduk.slashCommands.standardCommands;
 
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.Category;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
@@ -15,6 +16,7 @@ import net.dv8tion.jda.api.interactions.components.text.TextInput;
 import net.dv8tion.jda.api.interactions.components.text.TextInputStyle;
 import net.dv8tion.jda.api.interactions.modals.Modal;
 import org.jetbrains.annotations.NotNull;
+import pl.hajduk.config.Check;
 
 
 import java.util.*;
@@ -26,11 +28,13 @@ public class Zeus extends ListenerAdapter
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event)
         {
         Category category = null;
-        if (event.getName().equals("zeus"))
+        Check check=new Check();
+        User user= event.getUser().getJDA().getSelfUser();
+        Member member=event.getGuild().getMember(user);
+        String sagMember="1015734611726303323";
+        
+        if (event.getName().equals("zeus") &&(check.hasRole(member,sagMember)|| check.hasPermission(member,Permission.MESSAGE_SEND)))
             {
-
-            //TODO add imges to briefing
-
            
             TextInput missionName = TextInput.create("missionName", "Mission Name", TextInputStyle.SHORT)
                     .setPlaceholder("Mission name")
@@ -70,6 +74,11 @@ public class Zeus extends ListenerAdapter
             event.replyModal(modal).queue();
             
             }
+        else
+            event.reply("ONLY SAG-425 MEMBER CAN USE THIS COMMAND\n Tylko członkowie SAG-425 mogą użyć tej komendy").
+                    setEphemeral(true).queue(e->event.getUser().openPrivateChannel().
+                            queue((channel)->channel.sendMessage("To be a SAG-425 member contant Odyn#2209 or Grimm#9950 or send us your application on channel applications \n" +
+                                    "Żeby dołączyć do SAG-425 skontaktuj się z Odyn#2209 or Grimm#9950 albo wyślij nam swoje podanie na kanale apllications").queue()));
         }
     
     public void createTextChannel(Member member, String channelName)

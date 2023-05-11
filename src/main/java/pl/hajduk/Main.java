@@ -1,11 +1,17 @@
 package pl.hajduk;
 
-import net.dv8tion.jda.api.JDA;
+
 import net.dv8tion.jda.api.JDABuilder;
+
 import net.dv8tion.jda.api.entities.Activity;
+
 import net.dv8tion.jda.api.requests.GatewayIntent;
+
+import pl.hajduk.GuildEvents.autoRole;
+import pl.hajduk.GuildEvents.onJoin;
 import pl.hajduk.Listeners.ModalListener;
-import pl.hajduk.slashCommands.embedded.Zeus;
+import pl.hajduk.config.FromJson;
+import pl.hajduk.slashCommands.standardCommands.Zeus;
 import pl.hajduk.slashCommands.standardCommands.Clear;
 import pl.hajduk.slashCommands.testCommands.Ping;
 
@@ -15,32 +21,46 @@ import java.util.Random;
 // then press Enter. You can now see whitespace characters in your code.
 public class Main
     {
+    
+    
     public static void main(String[] args) throws Exception
         {
-        Random rnd=new Random();
         
-        long seed=rnd.nextLong();
+        
+        FromJson fJ = new FromJson();
+        fJ.setPrefix("!");
+        Random rnd = new Random();
+        System.out.println(fJ.getPrefix());
+        long seed = rnd.nextLong();
         
         rnd.setSeed(seed);
         
-        int x=rnd.nextInt(1,667);
+        int x = rnd.nextInt(1, 667);
         
-        String errors="Throwing Errors at line: "+x;
-        String komar="hunting mosquitos";
-        String acitvityMessage="";
-        if(x>200)
-            acitvityMessage=errors;
-        else
-            acitvityMessage=komar;
+        String errors = "Throwing Errors at line: " + x;
+        String komar = "hunting mosquitos";
+        String acitvityMessage = "";
+        if (x > 200)
+            {
+            acitvityMessage = errors;
+            } else
+            {
+            acitvityMessage = komar;
+            }
+
+
+//        JDA jda=JDABuilder.createLight(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS)
+//                .setActivity(Activity.playing(acitvityMessage)).build().awaitReady();
         
-        String token="MTA5NzkzNDM0MzU1MDI3MTYxOA.GHNG1J.sQvaNSJobgmRXFuaE60Pn_uIozDThmDrtnc0CE";
+        JDABuilder builder = JDABuilder.createLight(fJ.getToken(), GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS);
         
+        builder.setActivity(Activity.playing(acitvityMessage));
+        // jda.addEventListener(new Zeus(),new Ping(),new ModalListener(),new Clear(),new onJoin());
+        builder.addEventListeners(new Clear(), new Zeus(), new Ping(), new ModalListener(), new onJoin());
         
-        //JDA jda= JDABuilder.createDefault(token).setActivity(Activity.playing(acitvityMessage)).build();
-        JDA jda=JDABuilder.createLight(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS)
-                .setActivity(Activity.playing(acitvityMessage)).build().awaitReady();
+        builder.setEventPassthrough(true);
+        builder.build().awaitReady();
         
-        jda.addEventListener(new Zeus(),new Ping(),new ModalListener(),new Clear());
         
         
         
@@ -53,7 +73,6 @@ public class Main
         
         //ConfigureMemoryUsage memoryUsage=new ConfigureMemoryUsage();
         //memoryUsage.configureMemoryUsage( jda);
-        
         
         
         }

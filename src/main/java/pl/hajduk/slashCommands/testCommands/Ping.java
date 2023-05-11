@@ -10,19 +10,18 @@ public class Ping extends ListenerAdapter
     public void onMessageReceived(MessageReceivedEvent event)
         {
        String userMessage=event.getMessage().getContentRaw();
-       if (userMessage.equalsIgnoreCase("ping"))
+       if (userMessage.equalsIgnoreCase("!ping"))
            {
-           event.getChannel().sendMessage("pong").queue();
-           for (int i = 0; i < 30; i++)
-               {
-               event.getJDA().getGatewayPing();
-               }
+               long currentTime=System.currentTimeMillis();
+
+           event.getChannel().sendMessage("Pinging").queue(msg->{
+               long pingTime=System.currentTimeMillis()-currentTime;
+               msg.editMessage("ping: "+pingTime+"ms").queue();
+           });
+
            }
        
-       else if (userMessage.equals("komar"))
-           {
-           event.getChannel().sendMessage("GrAMYwGrOuNdBranChA?").queue();
-           }
+
         }
     
     }

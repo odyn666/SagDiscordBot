@@ -1,39 +1,47 @@
 package pl.hajduk.slashCommands.standardCommands;
 
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageHistory;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
-import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
-import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
-import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import net.dv8tion.jda.api.interactions.commands.build.Commands;
-import org.jetbrains.annotations.NotNull;
+
+import net.dv8tion.jda.api.requests.GatewayIntent;
+import pl.hajduk.config.Check;
+import pl.hajduk.config.FromJson;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Clear extends ListenerAdapter {
+
+
     @Override
-    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
+    public void onMessageReceived(MessageReceivedEvent event) {
+        //User user=event.getMessage().getAuthor();
+        Member member = event.getMember()   ;
+        FromJson fj = new FromJson();
+        String[] args = event.getMessage().getContentRaw().substring(0).split(" ");
+        Check check = new Check();
+        //TODO add slash command for selecting role id for operating commands
+        if (member != null && args[0].equals(fj.getPrefix().toString() + "clear") && (check.hasPermission(member, Permission.MANAGE_CHANNEL) || check.hasRole(member, "869528487944413194")) || member.getId().equals("227769412059529216")) {
+
+            System.out.println(args[1]);
 
 
-
-        if (event.getName().equals("clear")) {
-            String[] args = event.getName().split(" ");
-            List<Message>messageList= event.getChannel().getHistory().retrievePast(Integer.parseInt(args[1])+1).complete();
-            TextChannel channel= event.getChannel().asTextChannel();
-            channel.deleteMessages(messageList).queue();
-
+            List<Message> messageList = event.getChannel().getHistory().retrievePast(Integer.parseInt(args[1])).complete();
+            TextChannel channel = event.getChannel().asTextChannel();
+            if (Integer.parseInt(args[1]) > 2)
+                channel.deleteMessages(messageList).queue();
+            event.getJDA().openPrivateChannelById(event.getGuild().getOwnerId()).queue((privateChannel) -> channel.sendMessage("ammount must be at lest 2"));
 
 
-            if (args.length != 2)
-                return;
-
-            if (!isNumber(args[1]))
-                event.reply("usage /clear <ammount>").queue();
-
+        } else if (member == null) {
+            System.out.println("member: " + member);
         }
 
     }
@@ -48,18 +56,6 @@ public class Clear extends ListenerAdapter {
         }
     }
 
-    @Override
-    public void onGuildReady(@NotNull GuildReadyEvent event) {
-        List<CommandData> commandData = new ArrayList<>();
-        commandData.add(Commands.slash("clear", "clear {ammount}"));
-        event.getGuild().updateCommands().addCommands(commandData).queue();
-    }
 
-    @Override
-    public void onGuildJoin(GuildJoinEvent event) {
-        List<CommandData> commandData = new ArrayList<>();
-        commandData.add(Commands.slash("clear", "clear {ammount}"));
-        event.getGuild().updateCommands().addCommands(commandData).queue();
-    }
 }
     
