@@ -1,14 +1,18 @@
 package pl.hajduk.Listeners;
 
+import lombok.Getter;
+import lombok.Setter;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-
+@Getter
+@Setter
 public class TwatListener extends ListenerAdapter implements Runnable {
+    private boolean spammingON;
     @lombok.SneakyThrows
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         String message = event.getMessage().getContentRaw();
-        boolean spammingON = message.contains("!spamON");
+         spammingON = message.contains("!spamON");
         if (spammingON) {
             sendingSpamMessages(event, message);
         }

@@ -4,11 +4,13 @@ package pl.hajduk;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import pl.hajduk.GuildEvents.onJoin;
 import pl.hajduk.Listeners.ModalListener;
 import pl.hajduk.Listeners.TwatListener;
 import pl.hajduk.config.FromJson;
-import pl.hajduk.slashCommands.standardCommands.Clear;
+import pl.hajduk.service.CommandManager;
+import pl.hajduk.slashCommands.standardCommands.musicBotCommands.*;
 import pl.hajduk.slashCommands.standardCommands.Zeus;
 import pl.hajduk.slashCommands.testCommands.Ping;
 
@@ -20,6 +22,8 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception {
+        TwatListener twatListener = new TwatListener();
+        CommandManager manager = new CommandManager();
 
 
         FromJson fJ = new FromJson();
@@ -31,7 +35,7 @@ public class Main {
         rnd.setSeed(seed);
 
         int x = rnd.nextInt(1, 667);
-        Boolean fuckedUP = true;
+        Boolean fuckedUP = twatListener.isSpammingON();
         String errors = "Throwing Errors at line: " + x;
         String komar = "hunting mosquitos";
         String acitvityMessage = "";
@@ -40,37 +44,30 @@ public class Main {
         } else {
             acitvityMessage = komar;
         }
+        JDABuilder builder = JDABuilder.create(fJ.getKutangPan(), GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS,
+                GatewayIntent.GUILD_VOICE_STATES, GatewayIntent.GUILD_EMOJIS_AND_STICKERS, GatewayIntent.SCHEDULED_EVENTS,GatewayIntent.GUILD_PRESENCES);
+        builder.setMemberCachePolicy(MemberCachePolicy.ALL);
+
+
         if (fuckedUP) {
             acitvityMessage = "guys you fucked up badly";
+            builder.setActivity(Activity.playing("ALPHA BUILD"));
         }
 
+        builder.addEventListeners(new Zeus(), new Ping(), new ModalListener(), new onJoin(), twatListener);
+        manager.add(new Play());
+        manager.add(new Clear());
+        manager.add(new Pause());
+        manager.add(new Resume());
+        manager.add(new Skip());
 
-//        JDA jda=JDABuilder.createLight(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS)
-//                .setActivity(Activity.playing(acitvityMessage)).build().awaitReady();
-
-        JDABuilder builder = JDABuilder.createLight(fJ.getToken(), GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS);
-
-        builder.setActivity(Activity.playing(acitvityMessage));
-        // jda.addEventListener(new Zeus(),new Ping(),new ModalListener(),new Clear(),new onJoin());
-        builder.addEventListeners( new Zeus(), new Ping(), new ModalListener(), new onJoin(), new TwatListener());
-
+        builder.addEventListeners(manager);
         builder.setEventPassthrough(true);
         builder.build().awaitReady();
 
-
-        
-        
-        
-        
-       /* jda.updateCommands().addCommands(
-                Commands.slash("say","say something").setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MANAGE_CHANNEL, Permission.MODERATE_MEMBERS))
-        
-        ).queue();*/
-
-
-        //ConfigureMemoryUsage memoryUsage=new ConfigureMemoryUsage();
-        //memoryUsage.configureMemoryUsage( jda);
-
+//        EbWj349eIDwQPskBRg_IMKCk2Ds4kVEg  kutang secret
 
     }
+
+
 }

@@ -1,51 +1,34 @@
 package pl.hajduk.config;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
-public class FromJson
-    {
+@Getter
+@Setter
+public class FromJson {
     String token;
     String prefix;
-    
-    public FromJson()
-        {
+    String kutangPan;
+
+    public FromJson() {
         String jsonString = "";
-        try
-            {
+        try {
             jsonString = new String(Files.readAllBytes(Paths.get("src/main/java/pl/hajduk/config/config.json")));
-            } catch (IOException e)
-            {
+        } catch (IOException e) {
             throw new RuntimeException(e);
-            }
+        }
         JSONObject jsonObject = new JSONObject(jsonString);
-        String token = jsonObject.get("token").toString();
-        String prefix=jsonObject.get("prefix").toString();
+        token = jsonObject.get("token").toString();
+        prefix = jsonObject.get("prefix").toString();
+        kutangPan = jsonObject.get("kutang").toString();
         setToken(token);
         setPrefix(prefix);
-        
-        }
-    
-    public String getPrefix()
-        {
-        return prefix;
-        }
-    
-    public void setPrefix(String prefix)
-        {
-        this.prefix = prefix;
-        }
-    
-    public String getToken()
-        {
-        return token;
-        }
-    
-    public void setToken(String token)
-        {
-        this.token = token;
-        }
+
     }
+
+
+}

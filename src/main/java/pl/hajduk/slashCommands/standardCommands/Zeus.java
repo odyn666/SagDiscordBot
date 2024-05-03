@@ -32,7 +32,7 @@ public class Zeus extends ListenerAdapter
         User user= event.getUser().getJDA().getSelfUser();
         Member member=event.getGuild().getMember(user);
         String sagMember="1015734611726303323";
-        
+        if (!event.getName().equals("zeus")){return;}
         if (event.getName().equals("zeus") &&(check.hasRole(member,sagMember)|| check.hasPermission(member,Permission.MESSAGE_SEND)))
             {
            
