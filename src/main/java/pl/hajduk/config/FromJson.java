@@ -17,7 +17,8 @@ public class FromJson {
     public FromJson() {
         String jsonString = "";
         try {
-            jsonString = new String(Files.readAllBytes(Paths.get("src/main/java/pl/hajduk/config/config.json")));
+//            jsonString = new String(Files.readAllBytes(Paths.get("src/main/java/pl/hajduk/config/config.json")));
+            jsonString = new String(Files.readAllBytes(Paths.get("/home/odyn/projects/config.json")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

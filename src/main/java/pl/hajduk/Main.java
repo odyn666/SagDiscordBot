@@ -35,7 +35,7 @@ public class Main {
         rnd.setSeed(seed);
 
         int x = rnd.nextInt(1, 667);
-        Boolean fuckedUP = twatListener.isSpammingON();
+        Boolean fuckedUP = true;
         String errors = "Throwing Errors at line: " + x;
         String komar = "hunting mosquitos";
         String acitvityMessage = "";
@@ -53,13 +53,14 @@ public class Main {
             acitvityMessage = "guys you fucked up badly";
             builder.setActivity(Activity.playing("ALPHA BUILD"));
         }
-
+//TODO: remove old implementation of addEventListeners
         builder.addEventListeners(new Zeus(), new Ping(), new ModalListener(), new onJoin(), twatListener);
         manager.add(new Play());
         manager.add(new Clear());
         manager.add(new Pause());
         manager.add(new Resume());
         manager.add(new Skip());
+        manager.add(new Queue());
 
         builder.addEventListeners(manager);
         builder.setEventPassthrough(true);
