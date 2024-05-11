@@ -11,7 +11,8 @@ import pl.hajduk.Listeners.TwatListener;
 import pl.hajduk.config.FromJson;
 import pl.hajduk.service.CommandManager;
 import pl.hajduk.slashCommands.standardCommands.musicBotCommands.*;
-import pl.hajduk.slashCommands.standardCommands.Zeus;
+import pl.hajduk.slashCommands.standardCommands.sagCommands.Zeus;
+import pl.hajduk.slashCommands.standardCommands.ttsCommands.Voice;
 import pl.hajduk.slashCommands.testCommands.Ping;
 
 import java.util.Random;
@@ -35,7 +36,7 @@ public class Main {
         rnd.setSeed(seed);
 
         int x = rnd.nextInt(1, 667);
-        Boolean fuckedUP = true;
+        Boolean fuckedUP = false;
         String errors = "Throwing Errors at line: " + x;
         String komar = "hunting mosquitos";
         String acitvityMessage = "";
@@ -44,23 +45,26 @@ public class Main {
         } else {
             acitvityMessage = komar;
         }
-        JDABuilder builder = JDABuilder.create(fJ.getKutangPan(), GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS,
-                GatewayIntent.GUILD_VOICE_STATES, GatewayIntent.GUILD_EMOJIS_AND_STICKERS, GatewayIntent.SCHEDULED_EVENTS,GatewayIntent.GUILD_PRESENCES);
+        JDABuilder builder = JDABuilder.create(fJ.getToken(), GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS,
+                GatewayIntent.GUILD_VOICE_STATES, GatewayIntent.GUILD_EMOJIS_AND_STICKERS, GatewayIntent.SCHEDULED_EVENTS, GatewayIntent.GUILD_PRESENCES);
         builder.setMemberCachePolicy(MemberCachePolicy.ALL);
 
 
         if (fuckedUP) {
-            acitvityMessage = "guys you fucked up badly";
             builder.setActivity(Activity.playing("ALPHA BUILD"));
+            acitvityMessage = "guys you fucked up badly";
         }
 //TODO: remove old implementation of addEventListeners
+//TODO: add playing already downloaded playlists
         builder.addEventListeners(new Zeus(), new Ping(), new ModalListener(), new onJoin(), twatListener);
+        manager.add(new Voice());
         manager.add(new Play());
         manager.add(new Clear());
         manager.add(new Pause());
         manager.add(new Resume());
         manager.add(new Skip());
         manager.add(new Queue());
+
 
         builder.addEventListeners(manager);
         builder.setEventPassthrough(true);

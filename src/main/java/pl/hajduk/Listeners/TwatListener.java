@@ -4,21 +4,17 @@ import lombok.Getter;
 import lombok.Setter;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+
 @Getter
 @Setter
 public class TwatListener extends ListenerAdapter implements Runnable {
     private boolean spammingON;
+
     @lombok.SneakyThrows
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         String message = event.getMessage().getContentRaw();
-         spammingON = message.contains("!spamON");
-        if (spammingON) {
-            sendingSpamMessages(event, message);
-        }
-    }
 
-    private static void sendingSpamMessages(MessageReceivedEvent event, String message) throws InterruptedException {
         int i = 0;
 
         String id = event.getMember().getUser().getId();
@@ -31,10 +27,10 @@ public class TwatListener extends ListenerAdapter implements Runnable {
                 if (message.contains("@Inspektor Odyński")) {
                     text += "<@" + id + ">" + "fuck you too";
                 }
-                event.getMember().getUser().openPrivateChannel().flatMap(channel -> channel.sendMessage(" HANS ARE WE THE BADDIES?")).queue();
-                Thread.sleep(1500);
+                event.getMember().getUser().openPrivateChannel().flatMap(channel -> channel.sendMessage("<@"+ event.getMember().getId() + ">>" + " HANS ARE WE THE BADDIES?")).queue();
+                Thread.sleep(500);
                 event.getChannel().sendMessage(text).queue();
-                Thread.sleep(1000);
+//                Thread.sleep(1000);
                 i++;
 
                 if (i >= 200) break;

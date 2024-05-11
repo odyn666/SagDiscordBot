@@ -1,4 +1,4 @@
-package pl.hajduk.slashCommands.standardCommands;
+package pl.hajduk.slashCommands.standardCommands.sagCommands;
 
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
