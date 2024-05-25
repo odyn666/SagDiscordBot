@@ -37,5 +37,6 @@ build/
 ### Mac OS ###
 .DS_Store
 
-src/main/java/pl/hajduk/config/config.json
+!**/src/main/java/pl/hajduk/config/config.json
+config/config.json
 
