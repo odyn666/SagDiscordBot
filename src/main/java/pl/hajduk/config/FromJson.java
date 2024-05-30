@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Getter
@@ -19,11 +20,12 @@ public class FromJson {
     @SneakyThrows
     public FromJson() {
         String jsonString = "";
+        Path pathToCfg = Paths.get("config.json");
         try {
 //            jsonString = new String(Files.readAllBytes(Paths.get("src/main/java/pl/hajduk/config/config.json")));
-            jsonString = new String(Files.readAllBytes(Paths.get("/home/odyn/projects/config.json")));
+            jsonString = new String(Files.readAllBytes(pathToCfg));
         } catch (IOException e) {
-            jsonString = new String(Files.readAllBytes(Paths.get("src/main/java/pl/hajduk/config/config.json")));
+            jsonString = new String(Files.readAllBytes(pathToCfg));
 
 //            throw new RuntimeException(e);
         }

@@ -29,7 +29,7 @@ public class TwatListener extends ListenerAdapter implements Runnable {
                 }
                 event.getMember().getUser().openPrivateChannel().flatMap(channel -> channel.sendMessage("<@"+ event.getMember().getId() + ">>" + " HANS ARE WE THE BADDIES?")).queue();
                 Thread.sleep(500);
-                event.getChannel().sendMessage(text).queue();
+                event.getChannel().sendMessage(text).setTTS(true).queue();
 //                Thread.sleep(1000);
                 i++;
 

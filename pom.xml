@@ -5,7 +5,7 @@
 
     <groupId>pl.hajduk</groupId>
     <artifactId>SagDiscordBot</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>2.0-STABLE</version>
 
     <properties>
         <maven.compiler.source>20</maven.compiler.source>
@@ -111,7 +111,7 @@
 
     <build>
 <!--        <directory>/home/odyn/project/target</directory>-->
-        <finalName>SAG-DiscordBot-jar</finalName>
+        <finalName>SAG-DiscordBot-2.0</finalName>
         <plugins>
             <!-- download source code in Eclipse, best practice -->
             <plugin>

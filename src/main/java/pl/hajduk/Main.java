@@ -64,6 +64,8 @@ public class Main {
         manager.add(new Resume());
         manager.add(new Skip());
         manager.add(new Queue());
+        manager.add(new Delete());
+        manager.add(new AddAllPlaylistsToQueue());
 
 
         builder.addEventListeners(manager);
