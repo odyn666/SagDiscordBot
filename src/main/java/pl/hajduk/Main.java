@@ -56,7 +56,7 @@ public class Main {
         }
 //TODO: remove old implementation of addEventListeners
 //TODO: add playing already downloaded playlists
-        builder.addEventListeners(new Zeus(), new Ping(), new ModalListener(), new onJoin(), twatListener);
+        builder.addEventListeners(new Zeus(), new Ping(), new ModalListener(), new onJoin());
         manager.add(new Voice());
         manager.add(new Play());
         manager.add(new Clear());
