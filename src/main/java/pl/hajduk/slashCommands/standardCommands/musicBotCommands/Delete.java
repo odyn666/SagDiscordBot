@@ -31,7 +31,7 @@ public class Delete implements ICommand {
     @Override
     public void execute(SlashCommandInteractionEvent event) {
 
-        String[] command = { "bash", "-c", "rm -r /home/sagbot/music/*" };
+        String[] command = {"bash", "-c", "rm -r /home/sagbot/music/*"};
 
         try {
             ProcessBuilder pb = new ProcessBuilder(command);
@@ -40,11 +40,11 @@ public class Delete implements ICommand {
 
             int exitCode = process.waitFor();
             log.info("File deletion status " + exitCode);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        File file=new File("/home/odyn/music");
-        if(!file.exists()) event.reply("error has occured fix code plz");
+        File file = new File("/home/odyn/music");
+        if (!file.exists()) event.reply("error has occured fix code plz");
 
 
         event.reply("Playlists successful deleted");

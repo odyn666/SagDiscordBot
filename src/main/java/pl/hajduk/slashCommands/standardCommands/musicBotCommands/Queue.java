@@ -5,6 +5,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.hajduk.service.audio.musicBot.PlayerManager;
 import pl.hajduk.slashCommands.standardCommands.ICommand;
@@ -14,8 +15,6 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import org.slf4j.Logger;
 
 public class Queue implements ICommand {
     private static final Logger LOGGER = LoggerFactory.getLogger(Queue.class);

@@ -19,9 +19,9 @@ public class CommandManager extends ListenerAdapter {
 
     @Override
     public void onReady(@NotNull ReadyEvent event) {
-        for(Guild guild : event.getJDA().getGuilds()) {
-            for(ICommand command : commands) {
-                if(command.getOptions() == null) {
+        for (Guild guild : event.getJDA().getGuilds()) {
+            for (ICommand command : commands) {
+                if (command.getOptions() == null) {
                     guild.upsertCommand(command.getName(), command.getDescription()).queue();
                 } else {
                     guild.upsertCommand(command.getName(), command.getDescription()).addOptions(command.getOptions()).queue();
@@ -32,8 +32,8 @@ public class CommandManager extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
-        for(ICommand command : commands) {
-            if(command.getName().equals(event.getName())) {
+        for (ICommand command : commands) {
+            if (command.getName().equals(event.getName())) {
                 command.execute(event);
                 return;
             }

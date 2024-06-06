@@ -22,15 +22,15 @@ public class Clear implements ICommand {
 
     @Override
     public List<OptionData> getOptions() {
-        return List.of(new OptionData(OptionType.STRING,getName(),getDescription()));
+        return List.of(new OptionData(OptionType.STRING, getName(), getDescription()));
     }
 
     @Override
     public void execute(SlashCommandInteractionEvent event) {
-        PlayerManager playerManager=PlayerManager.get();
-        if (!playerManager.getGuildMusicManager(event.getGuild()).getTrackScheduler().getQueue().isEmpty()){
+        PlayerManager playerManager = PlayerManager.get();
+        if (!playerManager.getGuildMusicManager(event.getGuild()).getTrackScheduler().getQueue().isEmpty()) {
             playerManager.getGuildMusicManager(event.getGuild()).getTrackScheduler().clearQueue();
-        }else {
+        } else {
             event.reply("QUEUE IS EMPTY").queue();
         }
 

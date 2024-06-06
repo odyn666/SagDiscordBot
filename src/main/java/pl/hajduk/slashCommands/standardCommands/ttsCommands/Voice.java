@@ -1,12 +1,8 @@
 package pl.hajduk.slashCommands.standardCommands.ttsCommands;
 
-import com.google.cloud.speech.v1.*;
-import io.grpc.ManagedChannelBuilder;
-import io.grpc.ManagedChannelProvider;
 import lombok.extern.java.Log;
 import net.dv8tion.jda.api.audio.AudioReceiveHandler;
 import net.dv8tion.jda.api.audio.CombinedAudio;
-import net.dv8tion.jda.api.audio.SpeakingMode;
 import net.dv8tion.jda.api.audio.UserAudio;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
@@ -18,11 +14,9 @@ import net.dv8tion.jda.api.managers.AudioManager;
 import org.jetbrains.annotations.NotNull;
 import pl.hajduk.slashCommands.standardCommands.ICommand;
 
-import javax.sound.sampled.*;
-import java.io.*;
-import java.util.ArrayList;
+import javax.sound.sampled.AudioFormat;
+import java.io.ByteArrayOutputStream;
 import java.util.Base64;
-import java.util.Collection;
 import java.util.List;
 
 import static javax.sound.sampled.AudioFormat.Encoding.PCM_SIGNED;
@@ -56,7 +50,7 @@ public class Voice implements ICommand, AudioReceiveHandler {
 
     private String getAudioDataAsString(byte[] audioData) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        AudioFormat audioFormat = new AudioFormat(PCM_SIGNED, 16000, 16, 2, 4 * audioData.length,50.0f,false);
+        AudioFormat audioFormat = new AudioFormat(PCM_SIGNED, 16000, 16, 2, 4 * audioData.length, 50.0f, false);
 //                AudioSystem.write(audioData, AudioFileFormat.Type.WAVE, byteArrayOutputStream.writeTo(););
         byte[] audioBytes = byteArrayOutputStream.toByteArray();
         return Base64.getEncoder().encodeToString(audioBytes);

@@ -57,8 +57,7 @@ public class AddAllPlaylistsToQueue implements ICommand {
         List<File> localTracks = PlayerManager.get().getAllLocalTracks();
         if (localTracks.isEmpty()) {
             log.info("LOCAL TRACKS IS EMPTY");
-        }
-        else {
+        } else {
             localTracks.forEach(System.out::println);
         }
         localTracks.forEach(track -> {

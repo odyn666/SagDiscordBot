@@ -15,7 +15,6 @@ import net.dv8tion.jda.api.entities.Guild;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Log
 public class PlayerManager {
@@ -104,7 +103,6 @@ public class PlayerManager {
     public List<File> downloadMusicFromYT(String ytVid) {
 
 
-
         String dirPath = "/home/sagbot/music/pl" + playlistNo + "/";
         List<File> result;
         String command = "./yt-dlp -x --audio-format mp3 --output '" + dirPath + "%(title)s.%(ext)s' " + ytVid;
@@ -143,9 +141,9 @@ public class PlayerManager {
 
     }
 
-    public File getCurrentLocalTrack(String uri){
+    public File getCurrentLocalTrack(String uri) {
 
-       return this.localTracks.stream().filter(track-> track.getPath().equals(uri)).toList().get(0);
+        return this.localTracks.stream().filter(track -> track.getPath().equals(uri)).toList().get(0);
     }
 
 

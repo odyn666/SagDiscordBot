@@ -20,13 +20,11 @@ public class Talk implements ICommand {
 
     @Override
     public List<OptionData> getOptions() {
-        return List.of(new OptionData(OptionType.STRING,getName(),getDescription()));
+        return List.of(new OptionData(OptionType.STRING, getName(), getDescription()));
     }
 
     @Override
     public void execute(SlashCommandInteractionEvent event) {
-
-
 
 
     }

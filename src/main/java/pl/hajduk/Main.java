@@ -7,7 +7,6 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import pl.hajduk.GuildEvents.onJoin;
 import pl.hajduk.Listeners.ModalListener;
-import pl.hajduk.Listeners.TwatListener;
 import pl.hajduk.config.FromJson;
 import pl.hajduk.service.CommandManager;
 import pl.hajduk.slashCommands.standardCommands.musicBotCommands.*;
@@ -23,7 +22,7 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception {
-        TwatListener twatListener = new TwatListener();
+       // TwatListener twatListener = new TwatListener();
         CommandManager manager = new CommandManager();
 
 

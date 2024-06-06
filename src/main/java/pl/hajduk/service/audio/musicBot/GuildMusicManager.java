@@ -14,10 +14,10 @@ public class GuildMusicManager {
     private final AudioPlayer player;
 
     public GuildMusicManager(AudioPlayerManager manager, Guild guild) {
-       this.player = manager.createPlayer();
-       this.trackScheduler = new TrackScheduler(this.player);
-       this.player.addListener(this.trackScheduler);
-       this.sendHandler = new AudioPlayerSendHandler(this.player);
+        this.player = manager.createPlayer();
+        this.trackScheduler = new TrackScheduler(this.player);
+        this.player.addListener(this.trackScheduler);
+        this.sendHandler = new AudioPlayerSendHandler(this.player);
     }
 
     public AudioPlayerSendHandler getSendHandler() {
